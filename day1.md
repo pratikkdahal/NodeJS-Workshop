@@ -1,17 +1,17 @@
 # framework and libraries
 
-front end---> reaact.js, vue js, angular
-backend ----> nodejs, laravel, django
+  ## front end---> reaact.js, vue js, angular
+  ## backend ----> nodejs, laravel, django
 
 # Relation
 
-contents are received by frontend and passed through API so that backend gets it and keeps it in warehouse(databases)
+Contents are received by frontend and passed through API so that backend gets it and keeps it in warehouse(databases)
 
 frontend----> API -------> backend <----------> Database
 
-## API ---- bridge between frontend and backend (connection between them)
+API ---- bridge between frontend and backend (connection between them)
 
-## ORM - object relational mapping -----> acts as a connection/channel between databse and backend
+ORM - object relational mapping -----> acts as a connection/channel between databse and backend
      ORM tools- mongoose, sequel
 
 
