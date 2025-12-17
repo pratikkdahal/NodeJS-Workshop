@@ -17,17 +17,18 @@ ORM - object relational mapping -----> acts as a connection/channel between data
 
 
 # NodeJS----- Runtime platform for javascript(it gives wings to Javascript)
-   ## npm---- node package manager
+   npm---- node package manager
 
-# NodeJS is the playground, npm is the store which contains api and ExpressJS is the actual player.
+   NodeJS is the playground, npm is the store which contains api and ExpressJS is the actual player.
 
-# Package-json file -----> summarize file of your project which includes all description of your project
-
-
-# main file of nodejs-- app.js (just like index.html in html,main.c in c, style.css in css)
+   Package-json file -----> summarize file of your project which includes all description of your project
 
 
-# .gitignore -----> yo file ma list gareko files/folders github ma push hunnna
+   Main file of nodejs-- app.js (just like index.html in html,main.c in c, style.css in css)
+
+
+# .gitignore:
+   yo file ma list gareko files/folders github ma push hunnna
 
 # Semantic versioning
     (major.minor.patch)   eg. 5.2.2 version
