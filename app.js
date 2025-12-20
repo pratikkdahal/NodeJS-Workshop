@@ -1,10 +1,32 @@
 //require("express")    
 //import express from "express"
 const express= require("express")
+const dbConnect = require("./database/connection")
+const User = require("./models/usermodel")
+const Blog = require("./models/blogModel")
 const app = express()   //express() is a function
 
-app.get("/",function(req,res){  
-    res.json({name: "pratik"})
+dbConnect()
+
+//User Model
+
+app.get("/fetch-users",async function(req,res){  
+    // response ma User table ma vako user data send garnu paryo
+    const data = await User.find()
+    //k k cha thapaunu = User.find() , delete garna- User.findByIdAndDelete() , kei halna cha vane - User.create(), update garna- User.findByIdAndUpdate()
+    res.json({
+        data : data
+    })
+})
+
+//BLog Model
+
+app.get("/fetch-blogs",async function(req,res){
+    //response ma Blog table ma vako blog data send garnu paryo
+    const data = await Blog.find()
+    res.json({
+        data
+    })
 })
 
 
