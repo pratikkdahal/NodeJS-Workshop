@@ -6,6 +6,7 @@ const User = require("./models/usermodel")
 const Blog = require("./models/blogModel")
 const app = express()   //express() is a function
 const bcrypt = require("bcrypt")
+require("dotenv").config() //.config to trigger it
 
 dbConnect()
 
@@ -33,7 +34,7 @@ app.get("/fetch-blogs",async function(req,res){
     })
 })
 
-
+// to post the details in User
 app.post("/register",async function(req,res){
     // console.log(req.body)  accessing whole body i.e. name, email, password in js
     const name = req.body.name // accesing name data from body object in js
@@ -52,6 +53,63 @@ app.post("/register",async function(req,res){
 })
 })
 
+
+// find by id of User
+app.get("/fetch-users/:id", async function(req,res){
+    const data = await User.findById(req.params.id)
+    res.json({
+       data : data
+})
+})
+
+//find by id of User and remove password
+app.get("/fetch-users/:id", async function(req,res){
+    const data = await User.findById(req.params.id).select(["-password"]) //tara remove password of that id
+    res.json({
+       data : data
+})
+})
+
+// find by id of blog and remove subtitle
+app.get("/fetch-blogs/:id", async function(req,res){
+    const data = await Blog.findById(req.params.id).select(["-subtitle"]) //tara remove subtitle of that id
+    res.json({
+       data : data
+})
+})
+
+// update operation of User
+app.patch("/update-users/:id",async function(req,res){
+    const id = req.params.id
+    const name = req.body.name
+    const password = req.body.password
+    const email = req.body.email
+    await  User.findByIdAndUpdate(id,{
+        name : name,
+        email : email, 
+        password : password
+    })
+    res.json({
+        message : "User with that ID updated Successfully!"
+    })
+})
+
+//update operation of Blog
+app.patch("/update-blogs/:id",async function(req,res){
+    const id = req.params.id
+    const title = req.body.title
+    const subtitle = req.body.subtitle
+    const description = req.body.description
+    await Blog.findByIdAndUpdate(id,{
+        title : title,
+        subtitle : subtitle, 
+        description : description
+    })
+    res.json({
+        message : "Blog with that ID updated Successfully!"
+    })
+})
+
 app.post("/publish", async function(req,res){
     const title = req.body.title
     const subtitle = req.body.subtitle
@@ -67,7 +125,7 @@ app.post("/publish", async function(req,res){
     })
 })
 
-
+// find by id and delete operation of Blog
 app.delete("/delete/:id",async function(req,res){ 
     const id = req.params.id
     await Blog.findByIdAndDelete(id)
@@ -76,7 +134,7 @@ app.delete("/delete/:id",async function(req,res){
     })
 })
 
-
+// find by id and delete operation of User
 app.delete("/delete/:id",async function(req,res){ 
     const id = req.params.id
     await User.findByIdAndDelete(id)
@@ -85,7 +143,8 @@ app.delete("/delete/:id",async function(req,res){
         message : "User with that id is deleted successfully !!"
     })
 })
-// deleting details using body
+
+// deleting details of User using body
 app.delete("/delete",async function(req,res){ 
     const id = req.body.id
     await User.findByIdAndDelete(id)
@@ -105,4 +164,29 @@ app.get("/about",function(req,res){    // "/about"----is called route or API, Cl
         address : "about page address",
         name: "pratik"
     })
+})
+
+// login
+
+app.post("/login",async function(req,res){
+    //const email = req.body.id
+    //const password = req.body.password
+    const {email, password} = req.body
+    const data = await User.findOne({email:email})
+    if(!data){
+        res.json({
+            message : "Not registered !"
+        })
+    }else{
+       const isMatched = bcrypt.compareSync(password, data.password)
+       if(isMatched){
+        res.json({
+            message : "Logged in success"
+        })
+       }else{
+        res.json({
+            message : "Invalid message"
+        })
+       }
+    }
 })
