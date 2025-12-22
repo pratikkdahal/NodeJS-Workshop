@@ -31,14 +31,14 @@ eg:
 }
 
 
-# Notes:
+# Note :
 > Thunderclient/postman acts as the frontend which receive here....
-
+ 
 # Encryption/decryption 
 We can encrypt and also go back to normal 
 
 # Hashing 
-We cannot go back to normal
+We cannot go back to normal/cannot reverse
 * bcrypt, bcryptjs -- package used for hashing (password nubujhine format ma)
 * eg:
 >password : bcrypt.hashSync(password,10)
